@@ -1,8 +1,8 @@
 // Task Management Application - Starter Code with Errors
 
 // Global variables (scoping issues)
-taskList = [];  // Missing var/let/const
-var taskCounter = 0;  // Should use let or const
+let taskList = [];
+let taskCounter = 0; 
 
 // Task class with errors
 class Task {
@@ -34,7 +34,7 @@ class SubTask extends Task {
 
 // Function with no error handling
 function addTask(title, description, priority) {
-    var newTask = new Task(title, description, priority);  // Should use const
+    const newTask = new Task(title, description, priority);
     taskList.push(newTask);
     taskCounter++;
     return newTask;
@@ -43,7 +43,7 @@ function addTask(title, description, priority) {
 // Function with incorrect loop
 function displayAllTasks() {
     // Wrong loop - should use for-of
-    for (var i = 0; i <= taskList.length; i++) {  // Off-by-one error
+    for (let i = 0; i < taskList.length; i++) {  
         console.log(taskList[i].title);
     }
 }
