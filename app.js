@@ -2,62 +2,83 @@
 
 // Global variables (scoping issues)
 let taskList = [];
-let taskCounter = 0; 
+let taskCounter = 0;
 
 // Task class with errors
 class Task {
-    constructor(title, description, priority) {
+    constructor(id, title, description, priority) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.completed = false;
-        // Missing: id property
     }
     
-    // Missing: method to toggle completion
+    // Toggle completed status
+    toggleCompleted() {
+        this.completed = !this.completed;
+        return this.completed;
+    }
     
     getInfo() {
-        // Wrong string concatenation - should use template literals
-        return "Task: " + this.title + " - Priority: " + this.priority;
+        // template literals
+        return `Task:  + ${this.title} + " - Priority: " + ${this.priority}`;
     }
 }
 
-// Subtask class with inheritance issues
+// Subtask class
 class SubTask extends Task {
-    constructor(title, description, priority, parentTask) {
-        // Missing: super() call
+    constructor(id, title, description, priority, parentTask) {
+        super(id, title, description, priority);
         this.parentTask = parentTask;
+    }
+
+    // getInfo method overriding
+    getInfo() {
+        return `${super.getInfo()} [Subtask of: ${this.parentTask}]`;
     }
 }
 
 // Functions with errors
 
-// Function with no error handling
-function addTask(title, description, priority) {
-    const newTask = new Task(title, description, priority);
-    taskList.push(newTask);
+// Function with error handling
+function addTask(id, title, description, priority) {
+    if (typeof title !== "string" || title.trim() === "") {
+        throw new Error("addTask: string title must be added");
+    }
+    if (typeof description !== "string") {
+        throw new Error("addTask: description must be added as string");
+    }
+    if (typeof priority !== "number") {
+        throw new Error("addTask: priority must be a number");
+    }
+
     taskCounter++;
+    const newTask = new Task(taskCounter, title, description, priority);
+    taskList.push(newTask);
     return newTask;
 }
 
 // Function with incorrect loop
 function displayAllTasks() {
     // Wrong loop - should use for-of
-    for (let i = 0; i < taskList.length; i++) {  
-        console.log(taskList[i].title);
+    for (const task of taskList) {
+        console.log(task.title);
     }
 }
 
 // Function missing parameter
-function findTaskByTitle() {
-    // Missing: title parameter
-    // Wrong loop construct
-    var i = 0;
+function findTaskByTitle(title) {
+    if (title.trim() === "" || (typeof title) !== "string") {
+        return undefined;
+    }
+
+    let i = 0;
     while (i < taskList.length) {
-        if (taskList[i].title == title) {  // Should use ===
+        if (taskList[i].title === title) {
             return taskList[i];
         }
-        // Missing: i++
+        i++;
     }
     return undefined;
 }
@@ -67,8 +88,8 @@ function updateTaskPriority(taskId, newPriority) {
     // Missing: typeof check for parameters
     // Missing: null/undefined validation
     
-    for (var i = 0; i < taskList.length; i++) {
-        if (taskList[i].id = taskId) {  // Wrong operator (= instead of ===)
+    for (let i = 0; i < taskList.length; i++) {
+        if (taskList[i].id === taskId) {
             taskList[i].priority = newPriority;
             return true;
         }

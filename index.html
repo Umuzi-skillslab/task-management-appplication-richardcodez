@@ -42,20 +42,23 @@
         
         <section>
             <!-- Display Tasks -->
-             <h2 id="task-heading">Task List</h2>
+             <h2 id="task-heading">Task List:</h2>
 
              <div id="task-list" class="task-list" aria-live="polite"></div>
         </section>
         
         <section class="statistics">
-            <!-- Missing: statistics display -->
-             <h2 id="statistics-heading">Statistics</h2>
+            <!-- Display Statistics -->
+             <h2 id="statistics-heading">Statistics:</h2>
+             <p>Total Tasks: <span id="total-tasks">0</span></p>
+             <p>Completed Tasks: <span id="completed-tasks">0</span></p>
+             <p>Average Priority: <span id="average-priority">0</span></p>
         </section>
     </main>
     
     <!-- Scripts loaded in wrong order -->
-    <script src="dom.js"></script>
     <script src="app.js"></script>
+    <script src="dom.js"></script>
     <!-- Missing: module script -->
 </body>
 </html>
