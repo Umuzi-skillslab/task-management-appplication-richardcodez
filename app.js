@@ -22,7 +22,7 @@ class Task {
 
     getInfo() {
         // template literals
-        return `Task:  + ${this.title} + " - Priority: " + ${this.priority}`;
+        return `Task: ${this.title} - Priority: ${this.priority}`;
     }
 }
 
@@ -42,7 +42,7 @@ class SubTask extends Task {
 // Functions with errors
 
 // Function with error handling
-function addTask(id, title, description, priority) {
+function addTask(title, description, priority) {
 
     if (typeof title !== "string" || title.trim() === "") {
         throw new Error("addTask: string title must be added");
@@ -95,14 +95,6 @@ function updateTaskPriority(taskId, newPriority) {
         throw new Error("updateTaskPriority: newPriority must be a number");
     }
 
-    // null/undefined validation
-    if (taskId === null || taskId === undefined) {
-        throw new Error("updateTaskPriority: taskId cannot be null or undefined");
-    }
-    if (newPriority === null || newPriority === undefined) {
-        throw new Error("updateTaskPriority: newPriority cannot be null or undefined");
-    }
-
     for (let i = 0; i < taskList.length; i++) {
         if (taskList[i].id === taskId) {
             taskList[i].priority = newPriority;
@@ -147,7 +139,7 @@ function countCompletedTasks(tasks, index = 0) {
         return 0;
     }
     if (tasks[index] === null || tasks[index] === undefined) {
-        throw new Error("countCompletedTasks: task at index " + index + " is null or undefined");
+        throw new Error(`countCompletedTasks: task at index ${index} is null or undefined`);
     }
 
     if (tasks[index].completed) {
@@ -157,7 +149,7 @@ function countCompletedTasks(tasks, index = 0) {
     }
 }
 
-// Function with Math object issues
+// Function uses Math object to calculate average priority
 function calculateAveragePriority() {
     // checking for empty array
     if (taskList.length === 0) {
@@ -167,28 +159,57 @@ function calculateAveragePriority() {
     return Math.round(total / taskList.length *100) / 100;
 }
 
-// Filter function with errors
+// Filter function
 function getHighPriorityTasks(minPriority) {
 
     if (typeof minPriority !== "number") {
         throw new Error("getHighPriorityTasks: minPriority must be a number");
     }
 
-    // Should use array methods (filter)
-    return taskList.filter(task => tasks.priority > minPriority);
+    // Uses array methods (filter)
+    return taskList.filter(task => task.priority > minPriority);
 }
 
 // Object with missing methods
-var TaskManager = {
+const TaskManager = {
     tasks: taskList,
 
     // Missing: method to add task using functional approach
     // Missing: method using array methods (map, filter, reduce)
+    addNewTask: function (title, description, priority) {
+        return addTask(title, description, priority);
+    },
+
+    getCompletedTasks: function () {
+        return this.tasks.filter(task => task.completed);
+    },
+
+    getCompletedCount: function () {
+        return this.tasks.filter(task => task.completed).length;
+    },
+
+    getAllTitles: function () {
+        return this.tasks.map(task => task.title);
+    },
 
     getTotalTasks: function () {
         return this.tasks.length;
     }
 };
 
-// Export issues - should be a module
-// Missing: proper module exports
+// ES6 Module exports
+export {
+    Task,
+    SubTask,
+    TaskManager,
+    taskList,
+    addTask,
+    displayAllTasks,
+    findTaskByTitle,
+    updateTaskPriority,
+    getTaskDetails,
+    mergeTasks,
+    countCompletedTasks,
+    calculateAveragePriority,
+    getHighPriorityTasks
+}
