@@ -159,25 +159,23 @@ function countCompletedTasks(tasks, index = 0) {
 
 // Function with Math object issues
 function calculateAveragePriority() {
-    var total = 0;
-    // Missing: check for empty array
-    for (var i = 0; i < taskList.length; i++) {
-        total = total + taskList[i].priority;
+    // checking for empty array
+    if (taskList.length === 0) {
+        return 0;
     }
-    // Should use Math.round or toFixed
-    return total / taskList.length;
+    const total = taskList.reduce((sum, task) => sum + task.priority, 0);
+    return Math.round(total / taskList.length *100) / 100;
 }
 
 // Filter function with errors
 function getHighPriorityTasks(minPriority) {
-    var highPriority = [];
-    // Should use array methods (filter)
-    for (var i = 0; i < taskList.length; i++) {
-        if (taskList[i].priority > minPriority) {
-            highPriority.push(taskList[i]);
-        }
+
+    if (typeof minPriority !== "number") {
+        throw new Error("getHighPriorityTasks: minPriority must be a number");
     }
-    return highPriority;
+
+    // Should use array methods (filter)
+    return taskList.filter(task => tasks.priority > minPriority);
 }
 
 // Object with missing methods
