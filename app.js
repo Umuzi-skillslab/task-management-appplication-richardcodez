@@ -1,10 +1,10 @@
-// Task Management Application - Starter Code with Errors
+// Task Management Application
 
-// Global variables (scoping issues)
+// Global variables
 let taskList = [];
 let taskCounter = 0;
 
-// Task class with errors
+// Task class
 class Task {
     constructor(id, title, description, priority) {
         this.id = id;
@@ -13,13 +13,13 @@ class Task {
         this.priority = priority;
         this.completed = false;
     }
-    
+
     // Toggle completed status
     toggleCompleted() {
         this.completed = !this.completed;
         return this.completed;
     }
-    
+
     getInfo() {
         // template literals
         return `Task:  + ${this.title} + " - Priority: " + ${this.priority}`;
@@ -43,6 +43,7 @@ class SubTask extends Task {
 
 // Function with error handling
 function addTask(id, title, description, priority) {
+
     if (typeof title !== "string" || title.trim() === "") {
         throw new Error("addTask: string title must be added");
     }
@@ -54,14 +55,13 @@ function addTask(id, title, description, priority) {
     }
 
     taskCounter++;
-    const newTask = new Task(taskCounter, title, description, priority);
+    const newTask = new Task(taskCounter, title.trim(), description.trim(), priority);
     taskList.push(newTask);
     return newTask;
 }
 
-// Function with incorrect loop
+// Function with for of loop
 function displayAllTasks() {
-    // Wrong loop - should use for-of
     for (const task of taskList) {
         console.log(task.title);
     }
@@ -69,25 +69,40 @@ function displayAllTasks() {
 
 // Function missing parameter
 function findTaskByTitle(title) {
+
     if (title.trim() === "" || (typeof title) !== "string") {
         return undefined;
     }
 
-    let i = 0;
-    while (i < taskList.length) {
-        if (taskList[i].title === title) {
-            return taskList[i];
+    // for loop replaced while loop
+    for (const task of taskList) {
+        if (task.title === title) {
+            return task;
         }
-        i++;
+
     }
     return undefined;
 }
 
-// Function with type checking issues
+// Function with type checking
 function updateTaskPriority(taskId, newPriority) {
-    // Missing: typeof check for parameters
-    // Missing: null/undefined validation
-    
+
+    // typeof check for parameters
+    if (typeof taskId !== "number") {
+        throw new Error("updateTaskPriority: taskId must be a number");
+    }
+    if (typeof newPriority !== "number") {
+        throw new Error("updateTaskPriority: newPriority must be a number");
+    }
+
+    // null/undefined validation
+    if (taskId === null || taskId === undefined) {
+        throw new Error("updateTaskPriority: taskId cannot be null or undefined");
+    }
+    if (newPriority === null || newPriority === undefined) {
+        throw new Error("updateTaskPriority: newPriority cannot be null or undefined");
+    }
+
     for (let i = 0; i < taskList.length; i++) {
         if (taskList[i].id === taskId) {
             taskList[i].priority = newPriority;
@@ -97,40 +112,44 @@ function updateTaskPriority(taskId, newPriority) {
     return false;
 }
 
-// Function that should use destructuring but doesn't
+// Object destructuring with error handling
 function getTaskDetails(task) {
-    // Should destructure task properties
-    var title = task.title;
-    var description = task.description;
-    var priority = task.priority;
-    var completed = task.completed;
-    
+
+    if (!task || typeof task !== "object") {
+        throw new Error("getTaskDetails: task must be a valid object");
+    }
+
+    // Object destructuring
+    const { title, description, priority, completed } = task;
+
     return {
-        title: title,
-        description: description,
-        priority: priority,
-        completed: completed
+        title,
+        description,
+        priority,
+        completed
     };
 }
 
-// Function missing spread/rest operators
-function mergeTasks(list1, list2) {
+// Function with spread/rest operators
+function mergeTasks(list1, list2, ...rest) {
     // Should use spread operator
-    var merged = [];
-    for (var i = 0; i < list1.length; i++) {
-        merged.push(list1[i]);
-    }
-    for (var i = 0; i < list2.length; i++) {
-        merged.push(list2[i]);
-    }
-    return merged;
+    return [...list1, ...list2, ...rest];
 }
 
-// Recursive function with error
-function countCompletedTasks(tasks, index) {
-    // Missing: base case check
-    // Missing: null/undefined check
-    
+// Recursive function
+function countCompletedTasks(tasks, index = 0) {
+    // base case check
+    // null/undefined check
+    if (!Array.isArray(tasks)) {
+        throw new Error("countCompletedTasks: tasks must be an array");
+    }
+    if (index >= tasks.length) {
+        return 0;
+    }
+    if (tasks[index] === null || tasks[index] === undefined) {
+        throw new Error("countCompletedTasks: task at index " + index + " is null or undefined");
+    }
+
     if (tasks[index].completed) {
         return 1 + countCompletedTasks(tasks, index + 1);
     } else {
@@ -164,11 +183,11 @@ function getHighPriorityTasks(minPriority) {
 // Object with missing methods
 var TaskManager = {
     tasks: taskList,
-    
+
     // Missing: method to add task using functional approach
     // Missing: method using array methods (map, filter, reduce)
-    
-    getTotalTasks: function() {
+
+    getTotalTasks: function () {
         return this.tasks.length;
     }
 };
