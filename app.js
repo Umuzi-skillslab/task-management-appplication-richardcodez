@@ -170,12 +170,24 @@ function getHighPriorityTasks(minPriority) {
     return taskList.filter(task => task.priority > minPriority);
 }
 
-// Object with missing methods
+// Higher-order function
+function makePriorityFilter(threshold) {
+    return function(tasks) {
+        return tasks.filter(task => task.priority >= threshold);
+    }
+}
+
+// Pure function to check if any task has high priority
+function hasHighPriorityTask(tasks, threshold) {
+    return tasks.some(task => task.priority >= threshold);
+}
+
+// TaskManager Object
 const TaskManager = {
     tasks: taskList,
 
-    // Missing: method to add task using functional approach
-    // Missing: method using array methods (map, filter, reduce)
+    // Method to add task using functional approach
+    // Method using array methods (map, filter, reduce)
     addNewTask: function (title, description, priority) {
         return addTask(title, description, priority);
     },
@@ -211,5 +223,7 @@ export {
     mergeTasks,
     countCompletedTasks,
     calculateAveragePriority,
-    getHighPriorityTasks
+    getHighPriorityTasks,
+    makePriorityFilter,
+    hasHighPriorityTask
 }
