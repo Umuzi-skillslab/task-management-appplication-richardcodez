@@ -13,6 +13,8 @@ import {
     getHighPriorityTasks,
     hasHighPriorityTask,
     countCompletedTasks,
+    SubTask,
+    getTaskDetails,
 } from './app.js';
 
 beforeEach(() => {
@@ -188,9 +190,46 @@ describe('Array Operations', () => {
         });
     });
 
-    // Missing: tests for mergeTasks
-    // Missing: tests for getHighPriorityTasks
-    // Missing: tests for recursive function
+});
+
+// SubTask class and inheritance
+describe('SubTask class and inheritance', () => {
+    test('SubTask inherits from Task and includes parent task info', () => {
+        const subTask = new SubTask(2, 'Add charts', 'Add charts to report', 1, 'Write report');
+
+        expect(subTask.id).toBe(2);
+        expect(subTask.title).toBe('Add charts');
+        expect(subTask.completed).toBe(false);
+        expect(subTask).toBeInstanceOf(Task);
+
+        expect(subTask.getInfo()).toBe(
+            'Task: Add charts - Priority: 1 [Subtask of: Write report]'
+        );
+    });
+
+    test('SubTask inherits toggleCompleted from Task', () => {
+        const subTask = new SubTask(2, 'Add charts', 'Add charts to report', 1, 'Write report');
+        subTask.toggleCompleted();
+
+        expect(subTask.completed).toBe(true);
+    })
+});
+
+// Destructuring functions
+describe('Destructuring functions', () => {
+    test('getTaskDetails destructures the expected fields from a task object', () => {
+        const task = addTask('Task 1', 'description', 2);
+        const { title, description, priority, completed } = getTaskDetails(task);
+
+        expect(title).toBe('Task 1');
+        expect(description).toBe('description');
+        expect(priority).toBe(2);
+        expect(completed).toBe(false);
+    });
+
+    test('findTaskByTitle returns undefined for an empty title', () => {
+        expect(findTaskByTitle('')).toBeUndefined();
+    });
 });
 
 // Missing: describe blocks for:
