@@ -3,13 +3,25 @@
 // Missing: proper DOM selectors
 function setupEventListeners() {
     // Wrong selector method
-    var addButton = document.getElementById(".add-task-btn");  // Wrong - mixing ID and class
-    var taskInput = document.querySelector("task-input");  // Missing #
-    
-    // Missing: null checks before adding listeners
-    addButton.addEventListener("click", handleAddTask);
-    
-    // Missing: other event listeners for form submission, etc.
+    // var addButton = document.getElementById(".add-task-btn");  // Wrong - mixing ID and class
+    // var taskInput = document.querySelector("task-input");  // Missing #
+
+    const taskForm = document.getElementById("task-form");
+    const taskListContainer = document.getElementById("task-list");
+
+    // null checks for DOM elements
+    if (taskForm) {
+        taskForm.addEventListener("submit", handleAddTask);
+    } else {
+        console.error("setupEventListeners: task-form element not found in DOM");
+    }
+  
+    // other event listeners for form submission, etc.
+    if (taskListContainer) {
+        taskListContainer.addEventListener("click", handleTaskListClick);
+    } else {
+        console.error("setupEventListeners: task-list element not found in DOM");
+    }
 }
 
 // Function with DOM manipulation errors
