@@ -103,6 +103,7 @@ describe('Task Functions', () => {
                 updateTaskPriority('abc', 2).toThrow('updateTaskPriority: taskId must be a number');
             });
         });
+        });
 
         // edge cases
         describe( 'Edge cases', () => {
@@ -119,7 +120,6 @@ describe('Task Functions', () => {
             test('calculateAveragePriority returns 0 for an empty task list', () => {
                 expect(calculateAveragePriority()).toBe(0);
             });
-        });
     });
 
 });
