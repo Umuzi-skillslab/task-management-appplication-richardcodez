@@ -15,6 +15,7 @@ import {
     countCompletedTasks,
     SubTask,
     getTaskDetails,
+    TaskManager,
 } from './app.js';
 
 beforeEach(() => {
@@ -229,6 +230,19 @@ describe('Destructuring functions', () => {
 
     test('findTaskByTitle returns undefined for an empty title', () => {
         expect(findTaskByTitle('')).toBeUndefined();
+    });
+});
+
+// Task Manager Object
+describe('Taskmanager', () => {
+    test('getCompletedCount and getAllTitles reflect current tasks', () => {
+        const task1 = TaskManager.addNewTask('Task 1', 'description 1', 1);
+        TaskManager.addNewTask('Task 2', 'description 2', 2);
+        task1.toggleCompleted();
+
+        expect(TaskManager.getCompletedCount()).toBe(1);
+        expect(TaskManager.getAllTitles()).toEqual(['Task 1', 'Task 2']);
+        expect(TaskManager.getTotalTasks()).toBe(2);
     });
 });
 
