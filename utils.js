@@ -19,9 +19,11 @@ function saveToStorage(data) {
     try {
         const jsonData = JSON.stringify(data);
         localStorage.setItem("tasks", jsonData);
+        return true;
     }
     catch(error) {
         console.log(`saveToStorage failed: ${error.message}`);
+        return false;
     }
 }
 
@@ -61,7 +63,7 @@ function isHighPriority(task) {
     if (!task || typeof task.priority !== "number") {
         throw new Error("isHighPriority: task must be an object with a numeric priority");
     }
-    if (task.priority === HIGH_PRIORITY_TASK) {
+    if (task.priority >= HIGH_PRIORITY_TASK) {
         return true;  // returns boolean
     }
     return false;
@@ -71,10 +73,13 @@ function getPriorityLabel(priorityValue) {
     return priorities[priorityValue] || "unknown";  // returns string
 }
 
-// Missing: Class definitions
-// Missing: Inheritance example
-// Missing: Module exports
-// Missing: Proper use of operators (logical, comparison)
-// Missing: Recursion
-// Missing: Functional programming patterns
-// Missing: Proper scope demonstration
+export {
+    priorities,
+    HIGH_PRIORITY_TASK,
+    saveToStorage,
+    loadFromStorage,
+    generateRandomId,
+    formatTaskName,
+    isHighPriority,
+    getPriorityLabel
+}
