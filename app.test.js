@@ -1,6 +1,6 @@
-// Jest Tests - Starter Code with Errors and Missing Tests
+// Jest Tests
 
-// Missing: proper imports/requires
+// proper imports
 
 import {
     taskList,
@@ -246,8 +246,3 @@ describe('Taskmanager', () => {
     });
 });
 
-// Missing: describe blocks for:
-// - SubTask class and inheritance
-// - Destructuring functions
-// - Spread/rest operator functions
-// - Module exports/imports
