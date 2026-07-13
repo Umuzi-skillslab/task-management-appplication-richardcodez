@@ -3,34 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Task manager application">
     <title>Task Manager</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Task Management System</h1>
+    <main class="container">
+        <header>
+            <h1>Task Management System</h1>
+        </header>
         
-        <div class="add-task-section">
-            <h2>Add New Task</h2>
-            <!-- Form with issues -->
-            <input type="text" id="title" placeholder="Task Title">
-            <input type="text" id="description" placeholder="Description">
-            <!-- Missing: priority input -->
-            <button class="add-task-btn">Add Task</button>
-        </div>
+        <section class="add-task-section">
+            <h2 id="add-new-task">Add New Task</h2>
+            <!-- add task form -->
+             <form id="task-form">
+                <div class="form-grpoup">
+                    <label for="title">Task Title</label>
+                    <input type="text" name="title" id="title" placeholder="Enter your task title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" id="description" name="description" placeholder="Enter your task description">
+                </div>
+
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select name="priority" id="priority">
+                        <option value="1">Low</option>
+                        <option value="2">Medium</option>
+                        <option value="3">High</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="add-task-btn">Add Task</button>
+             </form>
+        </section>
         
-        <div class="task-list" id="task-list">
-            <!-- Tasks will be displayed here -->
-        </div>
+        <section>
+            <!-- Display Tasks -->
+             <h2 id="task-heading">Task List:</h2>
+
+             <div id="task-list" class="task-list" aria-live="polite"></div>
+        </section>
         
-        <div class="statistics">
-            <!-- Missing: statistics display -->
-        </div>
-    </div>
-    
-    <!-- Scripts loaded in wrong order -->
-    <script src="dom.js"></script>
-    <script src="app.js"></script>
-    <!-- Missing: module script -->
+        <section class="statistics">
+            <!-- Display Statistics -->
+             <h2 id="statistics-heading">Statistics:</h2>
+             <p>Total Tasks: <span id="total-tasks">0</span></p>
+             <p>Completed Tasks: <span id="completed-tasks">0</span></p>
+             <p>Average Priority: <span id="average-priority">0</span></p>
+        </section>
+    </main>
+
+    <!-- module script -->
+    <script type="module" src="src/dom.js"></script>
 </body>
 </html>
