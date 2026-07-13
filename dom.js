@@ -87,12 +87,11 @@ function displayTasks() {
 
 // Function with event handling issues
 function handleTaskClick(event) {
-    // Missing: event.target check
-    // Missing: proper event delegation
+
     const button = event.target.closest("button");
     if (!button) return;
 
-    const taskId = Number(button.dataset.id);  // Wrong way to get task ID
+    const taskId = Number(button.dataset.id);  // getting task ID
     const action = button.dataset.action;
 
     if (!taskId || !action) {
