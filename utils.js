@@ -67,6 +67,10 @@ function isHighPriority(task) {
     return false;
 }
 
+function getPriorityLabel(priorityValue) {
+    return priorities[priorityValue] || "unknown";  // returns string
+}
+
 // Missing: Class definitions
 // Missing: Inheritance example
 // Missing: Module exports
