@@ -1,26 +1,48 @@
 // Utilities - Starter Code (WITH ERRORS AND MISSING FEATURES)
 
-// Bug: Not using proper data structures
-var priorities = ["low", "medium", "high"];
+// Using proper data structures
+const priorities = {
+    1: "low",
+    2: "medium",
+    3: "high"
+};
+
+const HIGH_PRIORITY_TASK = 3;
 
 // Bug: Missing JSON operations
 function saveToStorage(data) {
-    // Bug: Not converting to JSON
-    localStorage.setItem("tasks", data);
+    // converts to JSON
+    if (!Array.isArray(data)) {
+        throw new Error("saveToStorage: data must be an array");
+    }
+
+    try {
+        const jsonData = JSON.stringify(data);
+        localStorage.setItem("tasks", jsonData);
+    }
+    catch(error) {
+        console.log(`saveToStorage failed: ${error.message}`);
+    }
 }
 
 function loadFromStorage() {
-    // Bug: Not parsing JSON
-    var data = localStorage.getItem("tasks");
-    return data;
+    // parsing JSON
+    try {
+        const data = localStorage.getItem("tasks");
+        return data? JSON.parse(data) : [];
+    }
+    catch(error) {
+        console.log(`loadFromStorage failed: ${error.message}`);
+        return [];
+    }
 }
 
 // Bug: Incorrect Math object usage
 function generateRandomId() {
-    return Math.random();  // Bug: Returns decimal, not integer
+    return Math.floor(Math.random() * 1000000);  // Returns integer
 }
 
-// Bug: Poor string manipulation
+// String manipulation
 function formatTaskName(name) {
     // Bug: Not using string methods properly
     var result = name;
