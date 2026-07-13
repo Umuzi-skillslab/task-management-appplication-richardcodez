@@ -45,16 +45,26 @@ function generateRandomId() {
 // String manipulation
 function formatTaskName(name) {
     // Bug: Not using string methods properly
-    var result = name;
-    return result;  // Should capitalize, trim, etc.
+    if (typeof name !== "string") {
+        throw new Error("formatTaskName: name must be a string");
+    }
+    const result = name.trim();
+    if (result.length === 0) {
+        return "";
+    }
+
+    return `${result.charAt(0).toUpperCase()}${result.slice(1)}`;  // capitalize, trim, etc.
 }
 
-// Bug: Incorrect boolean logic
+// returns boolean
 function isHighPriority(task) {
-    if (task.priority == "high") {  // Bug: Using ==
-        return "yes";  // Bug: Should return boolean
+    if (!task || typeof task.priority !== "number") {
+        throw new Error("isHighPriority: task must be an object with a numeric priority");
     }
-    return "no";
+    if (task.priority === HIGH_PRIORITY_TASK) {
+        return true;  // returns boolean
+    }
+    return false;
 }
 
 // Missing: Class definitions

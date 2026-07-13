@@ -95,9 +95,9 @@ function updateTaskPriority(taskId, newPriority) {
         throw new Error("updateTaskPriority: newPriority must be a number");
     }
 
-    for (let i = 0; i < taskList.length; i++) {
-        if (taskList[i].id === taskId) {
-            taskList[i].priority = newPriority;
+    for (const task of taskList) {
+        if (task.id === taskId) {
+            task.priority = newPriority;
             return true;
         }
     }
