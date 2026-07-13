@@ -2,11 +2,15 @@
   "name": "task-manager-starter",
   "version": "1.0.0",
   "description": "Task Management Application - Starter Code",
+  "type": "module",
   "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
-  "keywords": ["tasks", "javascript"],
+  "keywords": [
+    "tasks",
+    "javascript"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
