@@ -16,7 +16,7 @@ import {
     SubTask,
     getTaskDetails,
     TaskManager,
-} from './app.js';
+} from '../src/app.js';
 
 beforeEach(() => {
     taskList.length = 0; // Reset taskList before each test
